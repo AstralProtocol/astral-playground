@@ -730,10 +730,16 @@ console.log(result.attestation); // EAS attestation data`;
       <header className="header">
         <div className="header-content">
           <div className="header-left">
-            <img src="/astral-logo-wide.svg" alt="Astral" className="header-logo-wide" />
-            <p className="header-subtitle">Explore geospatial operations with instant preview and verifiable attestations</p>
+            <div className="header-title">
+              <img src="/astral-logo-wide.svg" alt="Astral" className="header-logo-wide" />
+              <span className="header-playground">Playground</span>
+            </div>
+            <p className="header-subtitle">Verifiable geospatial computation for the Astral Location Service</p>
           </div>
           <div className="header-right">
+            <a href="https://docs.astral.global" target="_blank" rel="noopener noreferrer" className="header-docs-link">
+              Docs
+            </a>
             <ConnectButton />
           </div>
         </div>

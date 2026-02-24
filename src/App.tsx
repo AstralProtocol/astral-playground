@@ -94,7 +94,7 @@ function InfoIcon({ tooltip }: { tooltip: string }) {
 
 // Configuration
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN || '';
-const API_URL = import.meta.env.VITE_API_URL || 'https://api.astral.global';
+const API_URL = import.meta.env.VITE_API_URL || 'https://staging-api.astral.global';
 
 interface Point {
   lng: number;

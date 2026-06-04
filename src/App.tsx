@@ -92,6 +92,24 @@ function InfoIcon({ tooltip }: { tooltip: string }) {
   );
 }
 
+// Marker pin rendered as a Marker child so its color tracks state reactively.
+// react-map-gl bakes the <Marker color> prop in at mount and never updates it,
+// so a child element is the only way to recolor live (e.g. green when a point
+// moves inside a polygon) without remounting and breaking the drag gesture.
+function Pin({ color }: { color: string }) {
+  return (
+    <svg width="27" height="38" viewBox="0 0 27 38" style={{ display: 'block', cursor: 'pointer' }}>
+      <path
+        d="M13.5 0C6 0 0 6 0 13.5 0 23 13.5 38 13.5 38S27 23 27 13.5C27 6 21 0 13.5 0Z"
+        fill={color}
+        stroke="#fff"
+        strokeWidth="1.5"
+      />
+      <circle cx="13.5" cy="13.5" r="5" fill="#fff" />
+    </svg>
+  );
+}
+
 // Configuration
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN || '';
 const API_URL = import.meta.env.VITE_API_URL || 'https://staging-api.astral.global';
@@ -775,21 +793,25 @@ console.log(result.attestation); // EAS attestation data`;
                 <Marker
                   longitude={pointA.lng}
                   latitude={pointA.lat}
+                  anchor="bottom"
                   draggable
                   onDragStart={handleDragStart}
                   onDrag={(e) => handleMarkerDrag('A', e)}
                   onDragEnd={(e) => handleDragEnd('A', e)}
-                  color={getMarkerAColor()}
-                />
+                >
+                  <Pin color={getMarkerAColor()} />
+                </Marker>
                 <Marker
                   longitude={pointB.lng}
                   latitude={pointB.lat}
+                  anchor="bottom"
                   draggable
                   onDragStart={handleDragStart}
                   onDrag={(e) => handleMarkerDrag('B', e)}
                   onDragEnd={(e) => handleDragEnd('B', e)}
-                  color="#10b981"
-                />
+                >
+                  <Pin color="#10b981" />
+                </Marker>
               </>
             )}
 
@@ -798,12 +820,14 @@ console.log(result.attestation); // EAS attestation data`;
               <Marker
                 longitude={pointB.lng}
                 latitude={pointB.lat}
+                anchor="bottom"
                 draggable
                 onDragStart={handleDragStart}
                 onDrag={(e) => handleMarkerDrag('B', e)}
                 onDragEnd={(e) => handleDragEnd('B', e)}
-                color={getMarkerBColor()}
-              />
+              >
+                <Pin color={getMarkerBColor()} />
+              </Marker>
             )}
 
             {/* Radius circle for 'within' */}
